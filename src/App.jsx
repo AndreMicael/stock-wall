@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import "./App.css";
 import axios from 'axios';
-
+import Loading from './components/loading/Loading';
 
 function App() {
     const [stock, setStock] = useState('');
     const [price, setPrice] = useState(null);
     const [proventos, setProventos] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const fetchStockPrice = async () => {
+        setLoading(true);
         try {
             const response = await axios.get(`http://localhost:3001/stock/${stock}`);
             setPrice(response.data.price);
             setProventos(response.data.proventos);
         } catch (error) {
             console.error('Erro ao encontrar o preço:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -57,10 +61,8 @@ function App() {
     </div>
     </div>
 
-
-
-
-            {price && (
+            {loading && <Loading />}
+            {!loading && price && (
                 <div>
                     <p className='text-blue-500'>Preço Atual: R$ {price}</p>
                     <div>
@@ -75,9 +77,7 @@ function App() {
                                         Ano: {prov.ano}, Valor: {prov.valor}
                                     </li>
                                 ))}
-                               
                             </ul>
-                                
                         </div>
                     )}
                 </div>
