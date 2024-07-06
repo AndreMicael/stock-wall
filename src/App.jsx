@@ -11,7 +11,8 @@ function App() {
    
     return (
        <>
-       <h1>Home</h1>
+       <div className="h-screen dark:bg-gray-900 dark:text-white"><h1>Home</h1></div>
+       
        </>
     );
 }

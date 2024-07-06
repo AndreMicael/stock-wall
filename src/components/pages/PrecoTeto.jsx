@@ -51,7 +51,7 @@ const PrecoTeto = () => {
 
   return (
     <div className="dark:bg-gray-900 dark:text-white h-screen">
-    <h1 className='text-3xl font-bold text-center mb-4 '>Calculadora de Preço Teto</h1>
+    <h1 className='text-3xl font-bold text-center mb-4 '>Calculadora de Preço Teto (Método Bazin)</h1>
 
     <div className="max-w-md mx-auto mb-4">
         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Ver Preço Teto</label>
@@ -74,14 +74,14 @@ const PrecoTeto = () => {
             <div className='text-center text-green-500 mb-6'>
                <p> Preço Teto: R$ {precoTeto.toFixed(2)}</p>
             </div>
-            {proventos && (
-                <div className='container w-[40vw] flex justify-center '>
-                  
+            {proventos && (             
+                <div> 
+                <div className=' text-sm mb-2 w-[20vw] text-center'>Proventos dos últimos 6 anos.</div>
+                <div className='container w-[40vw] flex justify-center '>                  
                     <div className="relative overflow-x-auto sm:rounded-lg ">
                         <table className="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr className='align-center justify-center'>
-                                    <td className=' '>Proventos dos últimos 6 anos.</td>
+                                <tr className='align-center justify-center'>                                    
                                 </tr>
                                 <tr>
                                     <th scope="col" className="px-6 py-3">Ano</th>
@@ -99,6 +99,7 @@ const PrecoTeto = () => {
                         </table>
                     </div>
                 </div>
+            </div>
             )}
         </div>
     )}
