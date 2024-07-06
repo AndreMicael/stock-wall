@@ -53,14 +53,14 @@ const PrecoTeto = () => {
     <div className="dark:bg-gray-900 flex flex-col  justify-start  items-center dark:text-gray-400 h-screen">
     <h1 className='text-3xl text-center mb-4 dark:text-blue-600'>Calculadora de Preço Teto </h1>
     
-    <div className='  w-1/2 flex flex-col gap-2  mb-4 whitespace-normal'>
+    <div className=' text-justify w-1/2 flex flex-col gap-2  mb-4 whitespace-normal'>
     <p className=''>
-    O preço teto médio é o valor máximo que se deve pagar por uma ação, considerando que o investidor deseja obter um 
+    O <span className='text-bolder'>PREÇO TETO MÉDIO </span>é o valor máximo que se deve pagar por uma ação, considerando que o investidor deseja obter um 
     retorno de 6% em proventos, baseado no histórico de dividendos dos últimos seis anos.</p> <p className=''> Em outras palavras, comprar uma 
     ação acima do preço teto pode significar pagar caro demais por uma ação que não justifica o investimento.
     </p> 
 
-<p>Busque sua ação pelo código. Ex.: "PETR4"</p>
+<p className='text-center '>Busque sua ação pelo código. Ex.: "<span className='text-green-400 text-bold'>PETR4</span>"</p>
     </div>
 
     <div className="max-w-md mx-auto mb-4 ">
@@ -113,6 +113,8 @@ const PrecoTeto = () => {
             )}
         </div>
     )}
+
+   
 </div>
   )
 }

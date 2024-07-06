@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import Navbar from './components/navbar/Navbar.jsx'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Footer from "./components/Footer/Footer.jsx"
 
 // Páginas 
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route exact path='/' element={ <App />}/>
         <Route path='/calculadora/precoteto' element={ <PrecoTeto />}/>     
     </Routes>
+    <Footer/>
   </BrowserRouter>
 
 
