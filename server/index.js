@@ -23,7 +23,7 @@ app.get('/stock/:symbol', async (req, res) => {
 
     const proventos = await page.evaluate(() => {
         // Adicione a função toggleClasse() se necessário
-        // toggleClasse();
+        toggleClasse();
 
         // Seleciona todas as linhas dentro do tbody
         var rows = document.querySelectorAll('#resultado-anual tbody tr');
