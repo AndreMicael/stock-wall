@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import DarkMode from "../DarkMode/DarkMode"
+import DarkLogo from "../../assets/stockwall.svg"
 
 
 const Navbar = () => {
@@ -11,15 +12,11 @@ const Navbar = () => {
 
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link
-                        to="/"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                         <a className="flex items-center space-x-3 rtl:space-x-reverse">
-            <h1 className="dark:text-gray-400">Stockwall</h1>
-          </a>
-                      
-          </Link>
+          <Link to="/"> 
+        <div className="flex gap-1 items-center"><img className="w-10" src={DarkLogo} alt="Logo StockWall" />  <p className="text-gray-900 dark:text-gray-300 text-2xl font-bold">StockWall</p></div> 
+        </Link>
+                        
+ 
          
           <button
             data-collapse-toggle="navbar-dropdown"
