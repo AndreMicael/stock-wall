@@ -50,11 +50,21 @@ const PrecoTeto = () => {
     const precoTeto = (sumProventos / 0.06);
 
   return (
-    <div className="dark:bg-gray-900 dark:text-white h-screen">
-    <h1 className='text-3xl font-bold text-center mb-4 '>Calculadora de Preço Teto (Método Bazin)</h1>
+    <div className="dark:bg-gray-900 flex flex-col  justify-start  items-center dark:text-gray-400 h-screen">
+    <h1 className='text-3xl text-center mb-4 dark:text-blue-600'>Calculadora de Preço Teto </h1>
+    
+    <div className='  w-1/2 flex flex-col gap-2  mb-4 whitespace-normal'>
+    <p className=''>
+    O preço teto médio é o valor máximo que se deve pagar por uma ação, considerando que o investidor deseja obter um 
+    retorno de 6% em proventos, baseado no histórico de dividendos dos últimos seis anos.</p> <p className=''> Em outras palavras, comprar uma 
+    ação acima do preço teto pode significar pagar caro demais por uma ação que não justifica o investimento.
+    </p> 
 
-    <div className="max-w-md mx-auto mb-4">
-        <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Ver Preço Teto</label>
+<p>Busque sua ação pelo código. Ex.: "PETR4"</p>
+    </div>
+
+    <div className="max-w-md mx-auto mb-4 ">
+        <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only ">Ver Preço Teto</label>
         <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">

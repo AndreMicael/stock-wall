@@ -23,6 +23,7 @@ module.exports = {
         'cinza': '#898989',
         'preto': '#000000',
         'rosa': '#E56399',
+       
       },
      
     },
