@@ -16,25 +16,38 @@ app.get('/stock/:symbol', async (req, res) => {
 
     const result = await page.evaluate(() => {
         const element = document.querySelector('.data.destaque.w3');
-        return element ? element.innerText : 'N/A';
+        const lpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(2) > td:nth-child(6)");
+        const vpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(6) > span");
+        
+        if (element && lpa && vpa) {
+            return {
+                element: element.innerText,
+                lpa: lpa.innerText,
+                vpa: vpa.innerText
+            };
+        } else {
+            return 'N/A';
+        }
     });
 
     await page.goto(urlProv);
 
     const proventos = await page.evaluate(() => {
         // Adicione a função toggleClasse() se necessário
-        toggleClasse();
+        if (typeof toggleClasse === 'function') {
+            toggleClasse();
+        }
 
         // Seleciona todas as linhas dentro do tbody
-        var rows = document.querySelectorAll('#resultado-anual tbody tr');
+        const rows = document.querySelectorAll('#resultado-anual tbody tr');
 
         // Armazena os resultados em um array
-        var provs = [];
+        const provs = [];
 
         rows.forEach(row => {
-            var cells = row.querySelectorAll('td');
-            var ano = cells[0].textContent;
-            var valor = cells[1].textContent;
+            const cells = row.querySelectorAll('td');
+            const ano = cells[0]?.textContent || 'N/A';
+            const valor = cells[1]?.textContent || 'N/A';
             provs.push({ ano, valor });
         });
 

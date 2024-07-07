@@ -50,7 +50,7 @@ const Navbar = () => {
                   className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
                   aria-current="page"
                 >
-                  Home
+                  Início
                 </a></Link>
                
               </li>
@@ -99,17 +99,10 @@ const Navbar = () => {
                         to="/calculadora/precoteto"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
-                        Preço Teto
+                        Preço Teto / Justo
                       </Link>
                     </li>
-                    <li>
-                    <Link
-                        to="/calculadora/precoteto"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Preço Justo
-                      </Link>
-                    </li>
+                 
                     {/* <li>
                     <Link
                         to="/calculadora/precoteto"
