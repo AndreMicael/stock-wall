@@ -25,6 +25,12 @@ const PrecoTeto = () => {
         }
     };
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+          fetchStockPrice();
+        }
+      };
+
     // Filtrar os dados dos proventos: últimos 6 anos, excluindo o ano atual.
     const filterProventos = (proventos) => {
         if (!proventos) return [];
@@ -54,8 +60,13 @@ const PrecoTeto = () => {
     const precoJusto = price && price.lpa && price.vpa ? Math.sqrt(22.5 * parseFloat(price.lpa.replace(',', '.')) * parseFloat(price.vpa.replace(',', '.'))) : null;
 
     return (
-        <div className="dark:bg-gray-900 flex flex-col justify-start items-center dark:text-gray-400 h-screen">
-            <div className="w-96 min-w-96 mx-auto mb-4">
+        <div className="pt-8 dark:bg-gray-900 flex flex-col justify-start items-center dark:text-gray-400 
+    h-screen
+       ">
+            
+            <div className=" mx-auto
+            
+            mb-4">
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">Ver Preço Teto</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -63,7 +74,12 @@ const PrecoTeto = () => {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input onChange={(e) => setStock(e.target.value)} type="text" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Insira o código da ação. ex: ITSA4" required />
+                    <input onKeyDown={handleKeyPress} onChange={(e) => setStock(e.target.value)} type="text" id="default-search" className="block 
+                    xl:w-96 lg:w-96 md:w-96 sm:w-96 xs:w-16 p-4 ps-10 text-sm text-gray-900 
+                    border border-gray-300 rounded-lg bg-gray-50 
+                    focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 
+                    dark:border-gray-600 dark:placeholder-gray-400 
+                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Insira o código da ação. ex: ITSA4" required />
                     <button onClick={fetchStockPrice} className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver Preço</button>
                 </div>
             </div>
@@ -71,9 +87,12 @@ const PrecoTeto = () => {
             {loading && <Loading />}
             {!loading && price && (
                 <div className='container flex flex-col justify-center'>
-                    <div className=' text-center '> <p>Preço Atual | <span className='text-yellow-400'>R$ {parseFloat(price.element.replace(',', '.'))}</span> </p></div>
+                     <h1 className='text-center font-bold text-lg text-orange-500'> {price.empresa} </h1>
+                     <h2 className='text-center mb-4'>Setor {price.setor}</h2>
+                    <div className=' text-center '> <p>Preço Atual : <span className='text-yellow-400'>R$ {parseFloat(price.element.replace(',', '.'))}</span> </p></div>
+                    
                     <div className='text-center  mb-6'>
-                        <h1 className='text-center'> </h1>
+                       
                         <p> Preço Teto: <span className='text-green-500'>R$ {precoTeto.toFixed(2)}</span> </p>
                         {precoJusto !== null && <div className='text-center'> <p >Preço Justo: <span className='text-blue-500'> R$ {precoJusto.toFixed(2)}</span></p></div>}
                     </div>

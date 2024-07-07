@@ -15,15 +15,19 @@ app.get('/stock/:symbol', async (req, res) => {
     await page.goto(url);
 
     const result = await page.evaluate(() => {
+        const empresa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(2) > tbody > tr:nth-child(3) > td:nth-child(2)");
+        const setor = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(2) > tbody > tr:nth-child(4) > td:nth-child(2)");
         const element = document.querySelector('.data.destaque.w3');
         const lpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(2) > td:nth-child(6)");
         const vpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(6) > span");
         
-        if (element && lpa && vpa) {
+        if (element && lpa && vpa && empresa && setor) {
             return {
+                empresa: empresa.innerText,
                 element: element.innerText,
                 lpa: lpa.innerText,
-                vpa: vpa.innerText
+                vpa: vpa.innerText,
+                setor: setor.innerText,
             };
         } else {
             return 'N/A';
