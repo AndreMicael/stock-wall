@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer.jsx"
 // Páginas 
 
 import PrecoTeto from './components/pages/PrecoTeto.jsx'
+import Aprenda from "./components/pages/Aprenda.jsx"
 
 
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Routes>
         <Route exact path='/' element={ <App />}/>
         <Route path='/calculadora/precoteto' element={ <PrecoTeto />}/>     
+        <Route path='/aprenda' element={ <Aprenda />}/>  
     </Routes>
     <Footer/>
   </BrowserRouter>
