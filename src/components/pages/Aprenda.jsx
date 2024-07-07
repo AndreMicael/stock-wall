@@ -2,7 +2,7 @@ import React from 'react'
 
 const Aprenda = () => {
   return (
-    <div className='bg-white h-max pb-10 dark:bg-gray-800 flex flex-col pt-10 items-center'>
+    <div className='bg-white h-max pb-10 dark:bg-gray-900 flex flex-col pt-10 items-center'>
         <h1 className='text-gray-900 dark:text-gray-300 text-2xl pb-10'></h1>
  <div id="accordion-collapse"  className='w-1/2  ' data-accordion="open">
   <h2 id="accordion-collapse-heading-1">
