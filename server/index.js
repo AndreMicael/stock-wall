@@ -5,6 +5,11 @@ const app = express();
 
 app.use(cors());
 
+// Rota para a raiz ("/")
+app.get('/', (req, res) => {
+  res.send('Bem-vindo ao serviço de consulta de ações!');
+});
+
 app.get('/stock/:symbol', async (req, res) => {
     const symbol = req.params.symbol;
     const url = `https://fundamentus.com.br/detalhes.php?papel=${symbol}`;
@@ -20,7 +25,7 @@ app.get('/stock/:symbol', async (req, res) => {
         const element = document.querySelector('.data.destaque.w3');
         const lpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(2) > td:nth-child(6)");
         const vpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(6) > span");
-        
+
         if (element && lpa && vpa && empresa && setor) {
             return {
                 empresa: empresa.innerText,
