@@ -2,7 +2,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import Loading from '../loading/Loading';
 
-import {Chart as ChartJS} from "chart.js/auto";
 import {Bar} from "react-chartjs-2"
 
 
@@ -15,7 +14,7 @@ const PrecoTeto = () => {
     const fetchStockPrice = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:3001/stock/${stock}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/stock/${stock}`);
             setPrice(response.data.price);
             setProventos(response.data.proventos);
         } catch (error) {
