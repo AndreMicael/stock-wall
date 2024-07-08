@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+const port = process.env.PORT || 3001;
 
 // Rota para a raiz ("/")
 app.get('/', (req, res) => {
