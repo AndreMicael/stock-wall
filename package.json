@@ -9,7 +9,7 @@
     "server": "node index.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "npm run dev",
+    "start": "npm run dev"
   },
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
