@@ -3,9 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
-const port = process.env.PORT || 3001;
+// Configurar CORS para permitir apenas o domínio do seu frontend
+const corsOptions = {
+  origin: 'https://stock-wall.vercel.app', // Substitua pelo domínio do seu frontend
+  optionsSuccessStatus: 200
+};
 
+app.use(cors(corsOptions));
+const port = process.env.PORT || 3001;
 
 // Rota para a raiz ("/")
 app.get('/', (req, res) => {
@@ -69,7 +74,6 @@ app.get('/stock/:symbol', async (req, res) => {
 
     res.json({ stock: symbol, price: result, proventos: proventos });
 });
-
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
