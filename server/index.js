@@ -74,6 +74,15 @@ app.get('/stock/:symbol', async (req, res) => {
       return provs;
     });
 
+
+    res.set({
+        'Access-Control-Allow-Origin': 'https://stock-wall.vercel.app',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': '86400' // 24 hours
+    });
+
+
     res.json({ stock: symbol, price: result, proventos: proventos });
   } catch (error) {
     console.error('Erro ao consultar ação:', error);
