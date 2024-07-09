@@ -1,9 +1,34 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "./index.js", "use": "@vercel/node" }
-    ],
-    "routes": [
-      { "src": "/(.*)", "dest": "/" }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    { "src": "./index.js", "use": "@vercel/node" }
+  ],
+  "rewrites": [
+    { 
+      "source": "/stock/:symbol", 
+      "destination": "/index.js"
+    },
+    {
+      "source": "/(.*)", 
+      "destination": "/index.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/stock/:symbol",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://stock-wall.vercel.app" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+      ]
+    }
+  ]
+}
