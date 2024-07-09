@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 const port = process.env.PORT || 3001;
 
+
 // Rota para a raiz ("/")
 app.get('/', (req, res) => {
   res.send('Bem-vindo ao serviço de consulta de ações!');
@@ -69,7 +70,7 @@ app.get('/stock/:symbol', async (req, res) => {
     res.json({ stock: symbol, price: result, proventos: proventos });
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
