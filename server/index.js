@@ -3,10 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// Configurar CORS para permitir apenas o domínio do seu frontend
+// Configuração do CORS para permitir qualquer origem
 const corsOptions = {
-  origin: 'https://stock-wall.vercel.app', // Substitua pelo domínio do seu frontend
-  optionsSuccessStatus: 200 // Algumas configurações adicionais de sucesso podem ser necessárias
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
+  allowedHeaders: ['Content-Type'], // Headers permitidos
+  maxAge: 86400, // Tempo de cache da pré-resposta (preflight) em segundos
 };
 
 app.use(cors(corsOptions));
@@ -73,13 +75,6 @@ app.get('/stock/:symbol', async (req, res) => {
 
       return provs;
     });
-
-    res.set({
-      'Access-Control-Allow-Origin': 'https://stock-wall.vercel.app',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400' // 24 hours
-  });
 
     res.json({ stock: symbol, price: result, proventos: proventos });
   } catch (error) {
