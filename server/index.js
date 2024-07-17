@@ -5,7 +5,7 @@ const app = express();
 
 // Configuração do CORS para permitir qualquer origem
 const corsOptions = {
-  origin: '*',
+  origin: '*', // Permite qualquer origem
   methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
   allowedHeaders: ['Content-Type'], // Headers permitidos
   maxAge: 86400, // Tempo de cache da pré-resposta (preflight) em segundos
@@ -15,12 +15,10 @@ app.use(cors(corsOptions));
 
 const port = process.env.PORT || 3001;
 
-// Rota para a raiz ("/")
 app.get('/', (req, res) => {
   res.send('Bem-vindo ao serviço de consulta de ações!');
 });
 
-// Rota para consultar informações de uma ação específica
 app.get('/stock/:symbol', async (req, res) => {
   const symbol = req.params.symbol;
   const url = `https://fundamentus.com.br/detalhes.php?papel=${symbol}`;
@@ -55,15 +53,7 @@ app.get('/stock/:symbol', async (req, res) => {
     await page.goto(urlProv);
 
     const proventos = await page.evaluate(() => {
-      // Adicione a função toggleClasse() se necessário
-      if (typeof toggleClasse === 'function') {
-        toggleClasse();
-      }
-
-      // Seleciona todas as linhas dentro do tbody
       const rows = document.querySelectorAll('#resultado-anual tbody tr');
-
-      // Armazena os resultados em um array
       const provs = [];
 
       rows.forEach(row => {
