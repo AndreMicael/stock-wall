@@ -6,7 +6,7 @@ ENV PUPPETTER_SKIP_CHROMIUM_DOWNLOAD=true \
 WORKDIR /app
 
 # Copiar os arquivos do projeto
-COPY . /app
+COPY app/package*.json ./
 
 # Mudar para o usuário root
 USER root
@@ -18,3 +18,6 @@ RUN npm ci
 USER pptruser
 
 CMD ["node", "server.js"]
+
+
+
