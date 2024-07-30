@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+require('dotenv').config();
 
 // Configuração do CORS para permitir qualquer origem
 const corsOptions = {
@@ -24,7 +25,12 @@ app.get('/stock/:symbol', async (req, res) => {
   const url = `https://fundamentus.com.br/detalhes.php?papel=${symbol}`;
   const urlProv = `https://fundamentus.com.br/proventos.php?papel=${symbol}`;
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true ,
+    args: ['--no-sandbox', '--disable-setuid-sandbox',"--single-process","--no-zygote"],
+    process.env.NODE_ENV === 'production' ? process.env.PUPETEER_EXECUTABLE_PATH
+    : puppeteer.executablePath(),
+
+  });
   const page = await browser.newPage();
   
   try {
