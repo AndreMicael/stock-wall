@@ -17,7 +17,7 @@ RUN npm ci
 # Voltar para o usuário padrão
 USER pptruser
 
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]
 
 
 
