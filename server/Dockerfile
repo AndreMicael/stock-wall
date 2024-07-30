@@ -5,7 +5,7 @@ ENV PUPPETTER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /app
 
-# Copiar os arquivos do projeto
+# Copiar apenas os arquivos de lock primeiro
 COPY app/package*.json ./
 
 # Mudar para o usuário root
@@ -14,10 +14,10 @@ USER root
 # Instalar as dependências
 RUN npm ci
 
+# Copiar todos os arquivos do diretório do aplicativo
+COPY app ./
+
 # Voltar para o usuário padrão
 USER pptruser
 
 CMD ["node", "index.js"]
-
-
-
