@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Loading from '../loading/Loading';
-import { Chart as ChartJS } from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 
 const PrecoTeto = () => {
@@ -14,6 +13,7 @@ const PrecoTeto = () => {
         setLoading(true);
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/stock/${stock}`);
+            console.log('API Response:', response.data); // Adicione este log para depuração
             setPrice(response.data.price);
             setProventos(response.data.proventos);
         } catch (error) {
@@ -25,20 +25,26 @@ const PrecoTeto = () => {
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            fetchStockPrice();
+          fetchStockPrice();
         }
-    };
+      };
 
     const filterProventos = (proventos) => {
         if (!proventos) return [];
+
         const currentYear = new Date().getFullYear();
-        return proventos.filter(prov => prov.ano >= currentYear - 6 && prov.ano < currentYear);
+        const filtered = proventos.filter(prov => prov.ano >= currentYear - 6 && prov.ano < currentYear);
+        return filtered.filter(prov => prov.ano !== currentYear);
     };
 
     const calculateSum = (proventos) => {
-        if (!proventos || proventos.length === 0) return 0;
+        if (!proventos) return 0;
+
         const filteredProventos = filterProventos(proventos);
-        return filteredProventos.reduce((acc, prov) => acc + (prov.valor ? parseFloat(prov.valor.replace(',', '.')) : 0), 0);
+        if (filteredProventos.length === 0) return 0;
+
+        const sum = filteredProventos.reduce((acc, prov) => acc + parseFloat(prov.valor.replace(',', '.')), 0);
+        return sum;
     };
 
     const sumProventos = calculateSum(proventos) / 6;
@@ -76,11 +82,8 @@ const PrecoTeto = () => {
                         {precoJusto !== null && <div className='text-center'><p>Preço Justo: <span className='text-blue-500'>R$ {precoJusto.toFixed(2)}</span></p></div>}
                     </div>
                     {proventos && (
-                        <div>
-                            <div className='container w-[40vw] flex justify-center'>
-                                {/* Tabela de proventos comentada */}
-                                {/* teste */}
-                            </div>
+                        <div className='container w-[40vw] flex justify-center'>
+                            {/* Tabela de Proventos removida para depuração */}
                         </div>
                     )}
                 </div>

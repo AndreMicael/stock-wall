@@ -4,15 +4,20 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config();
 
-// Configuração do CORS para permitir qualquer origem
 const corsOptions = {
-  origin: '*', // Permite qualquer origem
-  methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
-  allowedHeaders: ['Content-Type'], // Headers permitidos
-  maxAge: 86400, // Tempo de cache da pré-resposta (preflight) em segundos
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  maxAge: 86400,
 };
 
 app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 const port = process.env.PORT || 3001;
 
@@ -25,16 +30,17 @@ app.get('/stock/:symbol', async (req, res) => {
   const url = `https://fundamentus.com.br/detalhes.php?papel=${symbol}`;
   const urlProv = `https://fundamentus.com.br/proventos.php?papel=${symbol}`;
 
-  const browser = await puppeteer.launch({ headless: true ,
-    args: ['--no-sandbox', '--disable-setuid-sandbox',"--single-process","--no-zygote"],
-    // process.env.NODE_ENV === 'production' ? process.env.PUPETEER_EXECUTABLE_PATH
-    // : puppeteer.executablePath(),
-
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process', '--no-zygote']
   });
   const page = await browser.newPage();
-  
+
   try {
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3');
+
     await page.goto(url);
+    await page.waitForSelector("body > div.center > div.conteudo.clearfix > table:nth-child(2) > tbody > tr:nth-child(3) > td:nth-child(2)");
 
     const result = await page.evaluate(() => {
       const empresa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(2) > tbody > tr:nth-child(3) > td:nth-child(2)");
@@ -43,20 +49,19 @@ app.get('/stock/:symbol', async (req, res) => {
       const lpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(2) > td:nth-child(6)");
       const vpa = document.querySelector("body > div.center > div.conteudo.clearfix > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(6) > span");
 
-      if (element && lpa && vpa && empresa && setor) {
-        return {
-          empresa: empresa.innerText,
-          element: element.innerText,
-          lpa: lpa.innerText,
-          vpa: vpa.innerText,
-          setor: setor.innerText,
-        };
-      } else {
-        return 'N/A';
-      }
+      return {
+        empresa: empresa ? empresa.innerText : 'N/A',
+        element: element ? element.innerText : 'N/A',
+        lpa: lpa ? lpa.innerText : 'N/A',
+        vpa: vpa ? vpa.innerText : 'N/A',
+        setor: setor ? setor.innerText : 'N/A',
+      };
     });
 
+    console.log('Result:', result); // Adicione este log para depuração
+
     await page.goto(urlProv);
+    await page.waitForSelector('#resultado-anual tbody tr');
 
     const proventos = await page.evaluate(() => {
       const rows = document.querySelectorAll('#resultado-anual tbody tr');
@@ -71,6 +76,8 @@ app.get('/stock/:symbol', async (req, res) => {
 
       return provs;
     });
+
+    console.log('Proventos:', proventos); // Adicione este log para depuração
 
     res.json({ stock: symbol, price: result, proventos: proventos });
   } catch (error) {
